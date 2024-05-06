@@ -14,13 +14,13 @@ pipeline{
 
         stage('Build Jar'){
             steps{
-                bat 'mvn clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
         stage('Build Image'){
             steps{
-                bat 'docker build -t=dockerizedalpay/selenyumwithalpay .'
+                sh 'docker build -t=dockerizedalpay/selenyumwithalpay .'
             }
         }
 
@@ -30,9 +30,8 @@ pipeline{
                 DOCKER_HUB = credentials('dockerhub-creds')
             }
             steps{
-                // There might be a warning.
-                bat 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
-                bat 'docker push dockerizedalpay/selenyumwithalpay'
+                sh 'echo ${DOCKER_HUB_PSW} | docker login -u ${DOCKER_HUB_USR} --password-stdin'
+                sh 'docker push dockerizedalpay/selenyumwithalpay'
             }
         }
 
@@ -40,7 +39,7 @@ pipeline{
 
     post {
         always {
-            bat 'docker logout'
+            sh 'docker logout'
         }
     }
 
