@@ -27,28 +27,12 @@ pipeline{
         stage('Push Image'){
             environment{
                 // assuming you have stored the credentials with this name
-                echo "DOCKER_HUB giriliyor, credentialslar alındı."
-                echo "DOCKER_HUB giriliyor, credentialslar alındı."
-                echo "DOCKER_HUB giriliyor, credentialslar alındı."
-                echo "DOCKER_HUB giriliyor, credentialslar alındı."
                 DOCKER_HUB = credentials('dockerhub-creds')
             }
             steps{
                 // There might be a warning.
-                echo "Login İÇİN BİLGİLER TOPLANDI!"
-                echo "Login İÇİN BİLGİLER TOPLANDI!"
-                echo "Login İÇİN BİLGİLER TOPLANDI!"
-                echo "Login İÇİN BİLGİLER TOPLANDI!"
                 bat 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
-                echo "Login olundu.!"
-                echo "Login olundu.!"
-                echo "Login olundu.!"
-                echo "Login olundu.!"
                 bat 'docker push dockerizedalpay/selenyumwithalpay'
-                echo "PUSHLANDI KOD"
-                echo "PUSHLANDI KOD"
-                echo "PUSHLANDI KOD"
-                echo "PUSHLANDI KOD"
             }
         }
 
